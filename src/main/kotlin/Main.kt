@@ -35,13 +35,27 @@ fun App() {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
-            Button(onClick = { vr.startRecording() }){ Text("record") }
+            Button(onClick = {
+
+                println("before click")
+
+                vr.recordForSpecificDuration(duration = 10.0)
+
+                println("after click")
+
+            }){ Text("record") }
         }
     }
 
 
 
+    @Throws(UnsupportedAudioFileException::class, IOException::class)
+    fun getPcmByteArray(filename: String?): javax.sound.sampled.AudioFormat {
+        val inputFile = File(filename)
+        val audioInputStream = AudioSystem.getAudioInputStream(inputFile)
+        return audioInputStream.format
 
+    }
 
 }
 
